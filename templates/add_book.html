@@ -1,0 +1,289 @@
+{% extends "base.html" %}
+
+{% block title %}
+Add Book - Reading Tracker
+{% endblock %}
+
+
+{% block content %}
+
+<div class="form-page">
+
+    <div class="form-header">
+
+        <h1>Add a New Book 📚</h1>
+
+        <p>
+            Add a book to your reading library.
+        </p>
+
+    </div>
+
+
+    <div class="form-card">
+
+        <form method="POST" action="/add-book">
+
+            <!-- Book Title -->
+
+            <div class="mb-3">
+
+                <label class="form-label">
+                    Book Title
+                </label>
+
+                <input
+                    type="text"
+                    name="title"
+                    class="form-control"
+                    placeholder="Enter book title"
+                    required
+                >
+
+            </div>
+
+
+            <!-- Author -->
+
+            <div class="mb-3">
+
+                <label class="form-label">
+                    Author
+                </label>
+
+                <input
+                    type="text"
+                    name="author"
+                    class="form-control"
+                    placeholder="Enter author name"
+                    required
+                >
+
+            </div>
+
+
+            <!-- Genre -->
+
+            <div class="mb-3">
+
+                <label class="form-label">
+                    Genre
+                </label>
+
+                <select
+                    name="genre"
+                    class="form-select"
+                >
+
+                    <option value="">
+                        Select genre
+                    </option>
+
+                    <option value="Fiction">
+                        Fiction
+                    </option>
+
+                    <option value="Self Help">
+                        Self Help
+                    </option>
+
+                    <option value="Finance">
+                        Finance
+                    </option>
+
+                    <option value="Technology">
+                        Technology
+                    </option>
+
+                    <option value="Biography">
+                        Biography
+                    </option>
+
+                    <option value="Other">
+                        Other
+                    </option>
+
+                </select>
+
+            </div>
+
+
+            <!-- Pages -->
+
+            <div class="row">
+
+                <div class="col-md-6 mb-3">
+
+                    <label class="form-label">
+                        Total Pages
+                    </label>
+
+                    <input
+                        type="number"
+                        name="total_pages"
+                        class="form-control"
+                        min="1"
+                        placeholder="e.g. 320"
+                        required
+                    >
+
+                </div>
+
+
+                <div class="col-md-6 mb-3">
+
+                    <label class="form-label">
+                        Pages Read
+                    </label>
+
+                    <input
+                        type="number"
+                        name="pages_read"
+                        class="form-control"
+                        min="0"
+                        value="0"
+                    >
+
+                </div>
+
+            </div>
+
+
+            <!-- Status -->
+
+            <div class="mb-3">
+
+                <label class="form-label">
+                    Reading Status
+                </label>
+
+                <select
+                    name="status"
+                    class="form-select"
+                >
+
+                    <option value="Want to Read">
+                        📕 Want to Read
+                    </option>
+
+                    <option value="Currently Reading">
+                        📖 Currently Reading
+                    </option>
+
+                    <option value="Completed">
+                        ✅ Completed
+                    </option>
+
+                    <option value="On Hold">
+                        ⏸️ On Hold
+                    </option>
+
+                </select>
+
+            </div>
+
+
+            <!-- Rating -->
+
+            <div class="mb-3">
+
+                <label class="form-label">
+                    Rating
+                </label>
+
+                <select
+                    name="rating"
+                    class="form-select"
+                >
+
+                    <option value="">
+                        No rating
+                    </option>
+
+                    <option value="1">
+                        ⭐ 1
+                    </option>
+
+                    <option value="2">
+                        ⭐⭐ 2
+                    </option>
+
+                    <option value="3">
+                        ⭐⭐⭐ 3
+                    </option>
+
+                    <option value="4">
+                        ⭐⭐⭐⭐ 4
+                    </option>
+
+                    <option value="5">
+                        ⭐⭐⭐⭐⭐ 5
+                    </option>
+
+                </select>
+
+            </div>
+
+
+            <!-- Start Date -->
+
+            <div class="mb-3">
+
+                <label class="form-label">
+                    Start Date
+                </label>
+
+                <input
+                    type="date"
+                    name="start_date"
+                    class="form-control"
+                >
+
+            </div>
+
+
+            <!-- Notes -->
+
+            <div class="mb-4">
+
+                <label class="form-label">
+                    Notes
+                </label>
+
+                <textarea
+                    name="notes"
+                    class="form-control"
+                    rows="4"
+                    placeholder="Write your thoughts about this book..."
+                ></textarea>
+
+            </div>
+
+
+            <!-- Buttons -->
+
+            <div class="form-actions">
+
+                <a
+                    href="/"
+                    class="btn cancel-btn"
+                >
+                    Cancel
+                </a>
+
+                <button
+                    type="submit"
+                    class="btn add-btn"
+                >
+                    + Add Book
+                </button>
+
+            </div>
+
+        </form>
+
+    </div>
+
+</div>
+
+{% endblock %}

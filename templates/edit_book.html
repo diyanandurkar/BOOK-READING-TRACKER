@@ -1,0 +1,331 @@
+{% extends "base.html" %}
+
+{% block title %}
+Edit Book - Reading Tracker
+{% endblock %}
+
+
+{% block content %}
+
+<div class="form-page">
+
+    <div class="form-header">
+
+        <h1>Edit Book ✏️</h1>
+
+        <p>
+            Update your book information.
+        </p>
+
+    </div>
+
+
+    <div class="form-card">
+
+        <form
+            method="POST"
+            action="/edit-book/{{ book['id'] }}"
+        >
+
+            <!-- Title -->
+
+            <div class="mb-3">
+
+                <label class="form-label">
+                    Book Title
+                </label>
+
+                <input
+                    type="text"
+                    name="title"
+                    class="form-control"
+                    value="{{ book['title'] }}"
+                    required
+                >
+
+            </div>
+
+
+            <!-- Author -->
+
+            <div class="mb-3">
+
+                <label class="form-label">
+                    Author
+                </label>
+
+                <input
+                    type="text"
+                    name="author"
+                    class="form-control"
+                    value="{{ book['author'] }}"
+                    required
+                >
+
+            </div>
+
+
+            <!-- Genre -->
+
+            <div class="mb-3">
+
+                <label class="form-label">
+                    Genre
+                </label>
+
+                <select
+                    name="genre"
+                    class="form-select"
+                >
+
+                    <option value="">
+                        Select genre
+                    </option>
+
+                    <option
+                        value="Fiction"
+                        {% if book["genre"] == "Fiction" %}selected{% endif %}
+                    >
+                        Fiction
+                    </option>
+
+                    <option
+                        value="Self Help"
+                        {% if book["genre"] == "Self Help" %}selected{% endif %}
+                    >
+                        Self Help
+                    </option>
+
+                    <option
+                        value="Finance"
+                        {% if book["genre"] == "Finance" %}selected{% endif %}
+                    >
+                        Finance
+                    </option>
+
+                    <option
+                        value="Technology"
+                        {% if book["genre"] == "Technology" %}selected{% endif %}
+                    >
+                        Technology
+                    </option>
+
+                    <option
+                        value="Biography"
+                        {% if book["genre"] == "Biography" %}selected{% endif %}
+                    >
+                        Biography
+                    </option>
+
+                    <option
+                        value="Other"
+                        {% if book["genre"] == "Other" %}selected{% endif %}
+                    >
+                        Other
+                    </option>
+
+                </select>
+
+            </div>
+
+
+            <!-- Pages -->
+
+            <div class="row">
+
+                <div class="col-md-6 mb-3">
+
+                    <label class="form-label">
+                        Total Pages
+                    </label>
+
+                    <input
+                        type="number"
+                        name="total_pages"
+                        class="form-control"
+                        value="{{ book['total_pages'] }}"
+                        min="1"
+                        required
+                    >
+
+                </div>
+
+
+                <div class="col-md-6 mb-3">
+
+                    <label class="form-label">
+                        Pages Read
+                    </label>
+
+                    <input
+                        type="number"
+                        name="pages_read"
+                        class="form-control"
+                        value="{{ book['pages_read'] }}"
+                        min="0"
+                    >
+
+                </div>
+
+            </div>
+
+
+            <!-- Status -->
+
+            <div class="mb-3">
+
+                <label class="form-label">
+                    Reading Status
+                </label>
+
+                <select
+                    name="status"
+                    class="form-select"
+                >
+
+                    <option
+                        value="Want to Read"
+                        {% if book["status"] == "Want to Read" %}selected{% endif %}
+                    >
+                        📕 Want to Read
+                    </option>
+
+                    <option
+                        value="Currently Reading"
+                        {% if book["status"] == "Currently Reading" %}selected{% endif %}
+                    >
+                        📖 Currently Reading
+                    </option>
+
+                    <option
+                        value="Completed"
+                        {% if book["status"] == "Completed" %}selected{% endif %}
+                    >
+                        ✅ Completed
+                    </option>
+
+                    <option
+                        value="On Hold"
+                        {% if book["status"] == "On Hold" %}selected{% endif %}
+                    >
+                        ⏸️ On Hold
+                    </option>
+
+                </select>
+
+            </div>
+
+
+            <!-- Rating -->
+
+            <div class="mb-3">
+
+                <label class="form-label">
+                    Rating
+                </label>
+
+                <select
+                    name="rating"
+                    class="form-select"
+                >
+
+                    <option value="">
+                        No rating
+                    </option>
+
+                    {% for number in range(1, 6) %}
+
+                        <option
+                            value="{{ number }}"
+                            {% if book["rating"] == number %}selected{% endif %}
+                        >
+                            ⭐ {{ number }}
+                        </option>
+
+                    {% endfor %}
+
+                </select>
+
+            </div>
+
+
+            <!-- Start Date -->
+
+            <div class="mb-3">
+
+                <label class="form-label">
+                    Start Date
+                </label>
+
+                <input
+                    type="date"
+                    name="start_date"
+                    class="form-control"
+                    value="{{ book['start_date'] or '' }}"
+                >
+
+            </div>
+
+
+            <!-- Finish Date -->
+
+            <div class="mb-3">
+
+                <label class="form-label">
+                    Finish Date
+                </label>
+
+                <input
+                    type="date"
+                    name="finish_date"
+                    class="form-control"
+                    value="{{ book['finish_date'] or '' }}"
+                >
+
+            </div>
+
+
+            <!-- Notes -->
+
+            <div class="mb-4">
+
+                <label class="form-label">
+                    Notes
+                </label>
+
+                <textarea
+                    name="notes"
+                    class="form-control"
+                    rows="4"
+                >{{ book['notes'] or '' }}</textarea>
+
+            </div>
+
+
+            <!-- Buttons -->
+
+            <div class="form-actions">
+
+                <a
+                    href="/book/{{ book['id'] }}"
+                    class="btn cancel-btn"
+                >
+                    Cancel
+                </a>
+
+                <button
+                    type="submit"
+                    class="btn add-btn"
+                >
+                    Save Changes
+                </button>
+
+            </div>
+
+        </form>
+
+    </div>
+
+</div>
+
+{% endblock %}

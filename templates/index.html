@@ -1,0 +1,182 @@
+{% extends "base.html" %}
+
+{% block title %}
+Dashboard - Reading Tracker
+{% endblock %}
+
+
+{% block content %}
+
+<div class="dashboard-header">
+
+    <div>
+        <h1>Good morning, Reader 👋</h1>
+
+        <p>
+            Keep track of your reading journey.
+        </p>
+    </div>
+
+    <a href="/add-book" class="btn add-btn">
+        + Add Book
+    </a>
+
+</div>
+
+
+<!-- Statistics Cards -->
+
+<div class="row g-4 mt-2">
+
+    <div class="col-md-3">
+        <div class="stat-card">
+
+            <div class="stat-icon">📚</div>
+
+            <h2>{{ total_books }}</h2>
+
+            <p>Total Books</p>
+
+        </div>
+    </div>
+
+
+    <div class="col-md-3">
+        <div class="stat-card">
+
+            <div class="stat-icon">✅</div>
+
+            <h2>{{ completed_books }}</h2>
+
+            <p>Completed</p>
+
+        </div>
+    </div>
+
+
+    <div class="col-md-3">
+        <div class="stat-card">
+
+            <div class="stat-icon">📖</div>
+
+            <h2>{{ currently_reading }}</h2>
+
+            <p>Currently Reading</p>
+
+        </div>
+    </div>
+
+
+    <div class="col-md-3">
+        <div class="stat-card">
+
+            <div class="stat-icon">📄</div>
+
+            <h2>4,850</h2>
+
+            <p>Pages Read</p>
+
+        </div>
+    </div>
+
+</div>
+
+
+<!-- Currently Reading -->
+
+<div class="section-header">
+
+    <div>
+        <h2>Currently Reading</h2>
+
+        <p>Your active books</p>
+    </div>
+
+    <a href="#" class="view-link">
+        View All →
+    </a>
+
+</div>
+
+
+<div class="row g-4">
+
+
+    <div class="row g-4">
+
+    {% for book in books %}
+
+        {% if book["status"] == "Currently Reading" %}
+
+            <div class="col-md-6">
+
+                <div class="book-card">
+
+                    <div class="book-cover">
+                        📖
+                    </div>
+
+                    <div class="book-info">
+
+                        <h3>
+                            {{ book["title"] }}
+                        </h3>
+
+                        <p class="author">
+                            {{ book["author"] }}
+                        </p>
+
+                        {% if book["total_pages"] > 0 %}
+
+                            {% set progress =
+                                (book["pages_read"] / book["total_pages"] * 100)
+                                | round
+                            %}
+
+                        {% else %}
+
+                            {% set progress = 0 %}
+
+                        {% endif %}
+
+
+                        <div class="progress">
+
+                            <div
+                                class="progress-bar"
+                                style="width: {{ progress }}%;">
+                            </div>
+
+                        </div>
+
+
+                        <div class="progress-info">
+
+                            <span>
+                                {{ book["pages_read"] }}
+                                /
+                                {{ book["total_pages"] }}
+                                pages
+                            </span>
+
+                            <span>
+                                {{ progress }}%
+                            </span>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        {% endif %}
+
+    {% endfor %}
+
+</div>
+
+</div>
+
+{% endblock %}

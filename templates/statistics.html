@@ -1,0 +1,263 @@
+{% extends "base.html" %}
+
+{% block title %}
+Statistics - Reading Tracker
+{% endblock %}
+
+
+{% block content %}
+
+<div class="statistics-page">
+
+    <div class="section-header">
+
+        <div>
+            <h1>Reading Statistics 📊</h1>
+
+            <p>
+                Understand your reading habits and progress.
+            </p>
+        </div>
+
+    </div>
+
+
+    <!-- Summary Cards -->
+
+    <div class="row g-4 mb-4">
+
+        <div class="col-md-3">
+
+            <div class="stat-card">
+
+                <div class="stat-icon">
+                    📚
+                </div>
+
+                <div>
+                    <span>Total Books</span>
+
+                    <h2>{{ total_books }}</h2>
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div class="col-md-3">
+
+            <div class="stat-card">
+
+                <div class="stat-icon">
+                    ✅
+                </div>
+
+                <div>
+                    <span>Completed</span>
+
+                    <h2>{{ completed_books }}</h2>
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div class="col-md-3">
+
+            <div class="stat-card">
+
+                <div class="stat-icon">
+                    📖
+                </div>
+
+                <div>
+                    <span>Currently Reading</span>
+
+                    <h2>{{ currently_reading }}</h2>
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div class="col-md-3">
+
+            <div class="stat-card">
+
+                <div class="stat-icon">
+                    📄
+                </div>
+
+                <div>
+                    <span>Pages Read</span>
+
+                    <h2>{{ pages_read }}</h2>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- Charts -->
+
+    <div class="row g-4">
+
+        <!-- Genre Chart -->
+
+        <div class="col-md-6">
+
+            <div class="chart-card">
+
+                <h3>Books by Genre</h3>
+
+                <canvas id="genreChart"></canvas>
+
+            </div>
+
+        </div>
+
+
+        <!-- Status Chart -->
+
+        <div class="col-md-6">
+
+            <div class="chart-card">
+
+                <h3>Reading Status</h3>
+
+                <canvas id="statusChart"></canvas>
+
+            </div>
+
+        </div>
+
+
+        <!-- Rating Chart -->
+
+        <div class="col-md-12">
+
+            <div class="chart-card">
+
+                <h3>Book Ratings</h3>
+
+                <canvas id="ratingChart"></canvas>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- Chart.js -->
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+
+<script>
+
+    // Genre Chart
+
+    const genreLabels = {{ genre_labels | tojson }};
+    const genreValues = {{ genre_values | tojson }};
+
+
+    new Chart(
+        document.getElementById("genreChart"),
+        {
+            type: "doughnut",
+
+            data: {
+                labels: genreLabels,
+
+                datasets: [
+                    {
+                        data: genreValues
+                    }
+                ]
+            },
+
+            options: {
+                responsive: true
+            }
+        }
+    );
+
+
+    // Status Chart
+
+    const statusLabels = {{ status_labels | tojson }};
+    const statusValues = {{ status_values | tojson }};
+
+
+    new Chart(
+        document.getElementById("statusChart"),
+        {
+            type: "pie",
+
+            data: {
+                labels: statusLabels,
+
+                datasets: [
+                    {
+                        data: statusValues
+                    }
+                ]
+            },
+
+            options: {
+                responsive: true
+            }
+        }
+    );
+
+
+    // Rating Chart
+
+    const ratingLabels = {{ rating_labels | tojson }};
+    const ratingValues = {{ rating_values | tojson }};
+
+
+    new Chart(
+        document.getElementById("ratingChart"),
+        {
+            type: "bar",
+
+            data: {
+                labels: ratingLabels,
+
+                datasets: [
+                    {
+                        label: "Books",
+                        data: ratingValues
+                    }
+                ]
+            },
+
+            options: {
+                responsive: true,
+
+                scales: {
+                    y: {
+                        beginAtZero: true,
+
+                        ticks: {
+                            stepSize: 1
+                        }
+                    }
+                }
+            }
+        }
+    );
+
+</script>
+
+{% endblock %}
